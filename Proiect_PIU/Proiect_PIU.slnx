@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="../Manager_PIU/Manager_PIU.csproj" Id="f8ad9c30-c901-4b2d-8181-a74d1e221bfd" />
+  <Project Path="../Modele_PIU/Modele_PIU.csproj" Id="4c615969-59d7-48de-b5a2-eaec032bfdff" />
+  <Project Path="Proiect_PIU.csproj" />
+</Solution>
