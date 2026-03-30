@@ -7,7 +7,7 @@ namespace Proiect_PIU
     class Program
     {
         static void Main(string[] args)
-        
+        {
             ManagerMasiniFisier manager = new ManagerMasiniFisier();
 
             while (true)
@@ -41,7 +41,7 @@ namespace Proiect_PIU
                 }
             }
         }
-                       // Metoda pentru citirea datelor unei masini de la tastatura si salvarea acesteia in fisier//test
+
         static void CitireMasinaDeLaTastatura(ManagerMasiniFisier manager)
         {
             Console.WriteLine("\n--- INTRODUCERE DATE PROPRIETAR ---");
