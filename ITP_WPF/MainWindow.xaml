@@ -1,0 +1,277 @@
+﻿<Window x:Class="Proiect_PIU.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sistem ITP - Detalii Mașină"
+        Height="600" Width="850"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
+        Background="#F0F4F8">
+
+    <Window.Resources>
+
+        <!-- Culori -->
+        <SolidColorBrush x:Key="CuloarePrimara"        Color="#1A3C5E"/>
+        <SolidColorBrush x:Key="CuloareSecundara"      Color="#2980B9"/>
+        <SolidColorBrush x:Key="CuloareAccent"         Color="#27AE60"/>
+        <SolidColorBrush x:Key="CuloareAvertizare"     Color="#E74C3C"/>
+        <SolidColorBrush x:Key="CuloareCard"           Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="CuloareText"           Color="#2C3E50"/>
+        <SolidColorBrush x:Key="CuloareTextSecundar"   Color="#7F8C8D"/>
+
+        <!-- Stil global pentru toate Label-urile -->
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize"   Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource CuloareText}"/>
+            <Setter Property="Padding"    Value="0"/>
+        </Style>
+
+        <!-- Eticheta de camp (mic, gri, uppercase vizual) -->
+        <Style x:Key="LabelCamp" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="FontSize"   Value="11"/>
+            <Setter Property="Foreground" Value="{StaticResource CuloareTextSecundar}"/>
+            <Setter Property="Padding"    Value="0"/>
+        </Style>
+
+        <!-- Valoarea campului -->
+        <Style x:Key="LabelValoare" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize"   Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource CuloareText}"/>
+            <Setter Property="Padding"    Value="0"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Background="{StaticResource CuloarePrimara}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="28,0">
+                <StackPanel VerticalAlignment="Center">
+                    <Label Name="lblTitluPrincipal"
+                           Content="Sistem de Gestionare ITP"
+                           FontFamily="Segoe UI Light"
+                           FontSize="20"
+                           Foreground="White"
+                           Padding="0"/>
+                    <Label Content="Detalii Mașină"
+                           FontFamily="Segoe UI"
+                           FontSize="12"
+                           Foreground="#A9CCE3"
+                           Padding="0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- CONTINUT -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="28,20,28,16" MaxWidth="860" HorizontalAlignment="Center">
+
+                <!-- CARD: Date Masina -->
+                <Border Background="{StaticResource CuloareCard}"
+                        CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="6" ShadowDepth="1"
+                                          Color="#BBBBBB" Opacity="0.35"/>
+                    </Border.Effect>
+                    <StackPanel>
+
+                        <!-- Titlu sectiune -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <Border Width="3" Background="{StaticResource CuloareSecundara}"
+                                    CornerRadius="2" Margin="0,0,8,0"/>
+                            <Label Content="DATE MAȘINĂ"
+                                   FontFamily="Segoe UI Semibold" FontSize="12"
+                                   Foreground="{StaticResource CuloareSecundara}"
+                                   Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Rand 1 -->
+                            <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,16,12">
+                                <Label Content="NR. ÎNMATRICULARE" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblNrInmatriculare"
+                                       Style="{StaticResource LabelValoare}"
+                                       FontSize="17"
+                                       Foreground="{StaticResource CuloarePrimara}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,16,12">
+                                <Label Content="MARCĂ / MODEL" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblMarcaModel" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="0" Margin="0,0,0,12">
+                                <Label Content="AN FABRICAȚIE" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblAnFabricatie" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+
+                            <!-- Rand 2 -->
+                            <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,16,0">
+                                <Label Content="CULOARE" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblCuloare" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,16,0">
+                                <Label Content="DOTĂRI" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblDotari" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- CARD: Proprietar -->
+                <Border Background="{StaticResource CuloareCard}"
+                        CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="6" ShadowDepth="1"
+                                          Color="#BBBBBB" Opacity="0.35"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <Border Width="3" Background="#8E44AD"
+                                    CornerRadius="2" Margin="0,0,8,0"/>
+                            <Label Content="PROPRIETAR"
+                                   FontFamily="Segoe UI Semibold" FontSize="12"
+                                   Foreground="#8E44AD"
+                                   Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <Label Content="NUME" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblProprietarNume" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                                <Label Content="CNP" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblProprietarCNP" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="TELEFON" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblProprietarTelefon" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- CARD: Ultima Inspectie -->
+                <Border Background="{StaticResource CuloareCard}"
+                        CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="6" ShadowDepth="1"
+                                          Color="#BBBBBB" Opacity="0.35"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <Border Width="3" Background="{StaticResource CuloareAccent}"
+                                    CornerRadius="2" Margin="0,0,8,0"/>
+                            <Label Content="ULTIMA INSPECȚIE ITP"
+                                   FontFamily="Segoe UI Semibold" FontSize="12"
+                                   Foreground="{StaticResource CuloareAccent}"
+                                   Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                <Label Content="REZULTAT" Style="{StaticResource LabelCamp}"/>
+                                <!-- Badge rezultat -->
+                                <Border Name="badgeRezultat" CornerRadius="10"
+                                        Padding="10,3" HorizontalAlignment="Left"
+                                        Margin="0,4,0,0">
+                                    <Label Name="lblRezultat"
+                                           FontFamily="Segoe UI Semibold"
+                                           FontSize="13" Padding="0"/>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                                <Label Content="DATA INSPECȚIEI" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblDataInspectie" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Margin="0,0,16,0">
+                                <Label Content="VALABIL PÂNĂ LA" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblValabilPana" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3">
+                                <Label Content="INSPECTOR" Style="{StaticResource LabelCamp}"/>
+                                <Label Name="lblInspector" Style="{StaticResource LabelValoare}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Defectiuni (vizibil doar daca exista) -->
+                        <Border Name="panelDefectiuni" Margin="0,12,0,0"
+                                Background="#FEF9E7" CornerRadius="6"
+                                Padding="12,8" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Defecțiuni:" Style="{StaticResource LabelCamp}"
+                                       Foreground="#B7950B" FontSize="12"
+                                       VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <Label Name="lblDefectiuni"
+                                       FontFamily="Segoe UI" FontSize="13"
+                                       Foreground="#7D6608" Padding="0"
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- PANOU AVERTIZARE -->
+                <Border Name="panelAvertizare"
+                        Background="#FDEDEC"
+                        BorderBrush="{StaticResource CuloareAvertizare}"
+                        BorderThickness="1" CornerRadius="8"
+                        Padding="16,10" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="⚠"
+                               FontSize="16" Padding="0,0,10,0"
+                               Foreground="{StaticResource CuloareAvertizare}"
+                               VerticalAlignment="Center"/>
+                        <Label Name="lblAvertizare"
+                               FontFamily="Segoe UI Semibold" FontSize="13"
+                               Foreground="{StaticResource CuloareAvertizare}"
+                               Padding="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- FOOTER -->
+        <Border Grid.Row="2" Background="{StaticResource CuloarePrimara}">
+            <Label Content="© 2025 Sistem ITP  |  Proiectare Interfețe Utilizator"
+                   FontFamily="Segoe UI" FontSize="12"
+                   Foreground="#A9CCE3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        </Border>
+
+    </Grid>
+</Window>
