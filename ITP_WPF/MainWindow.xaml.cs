@@ -1,41 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using Modele_PIU.models;
+using Manager_PIU.manager;
 using Modele_PIU.enums;
-//lab 6 - implementare UI WPF pentru afisarea detaliata a unei masini, inclusiv istoricul inspectiilor ITP, cu evidentierea rezultatelor si avertizari pentru ITP expirat sau respins.
-//tema
+using Modele_PIU.models;
+
 namespace Proiect_PIU
 {
     public partial class MainWindow : Window
     {
+        private readonly ManagerMasiniFisier _manager = new ManagerMasiniFisier();
+
         public MainWindow()
         {
             InitializeComponent();
             AfiseazaMasina();
         }
 
+        // ===================== AFISARE DETALII =====================
         private void AfiseazaMasina()
         {
             Proprietar proprietar = new Proprietar("Popescu Ion", "1850312374521", "0721 123 456");
-
             Inspector inspector = new Inspector("Ionescu Mihai", "ITP-2024-007");
-
-            Masina masina = new Masina("Dacia", "Logan", 2019, "SV-01-XYZ", proprietar, Culoare.Alb, Optiuni.Niciuna);
+            Masina masina = new Masina("Dacia", "Logan", 2019, "SV-01-XYZ", proprietar, Culoare.Alb, Optiuni.AerConditionat | Optiuni.Navigatie);
 
             InspectieITP inspectie = new InspectieITP(new DateTime(2024, 3, 15), Rezultat.Admis, inspector, "");
-
             masina.IstoricInspectii.Add(inspectie);
 
             lblNrInmatriculare.Content = masina.NrInmatriculare;
             lblMarcaModel.Content = masina.Marca + " " + masina.Model;
             lblAnFabricatie.Content = masina.AnFabricatie.ToString();
             lblCuloare.Content = masina.CuloareMasina.ToString();
-
-            if (masina.Dotari == Optiuni.Niciuna)
-                lblDotari.Content = "Standard";
-            else
-                lblDotari.Content = masina.Dotari.ToString();
+            lblDotari.Content = masina.Dotari == Optiuni.Niciuna ? "Standard" : masina.Dotari.ToString();
 
             lblProprietarNume.Content = masina.Proprietar.Nume;
             lblProprietarCNP.Content = masina.Proprietar.CNP;
@@ -44,7 +43,6 @@ namespace Proiect_PIU
             if (masina.IstoricInspectii.Count > 0)
             {
                 InspectieITP ultima = masina.IstoricInspectii[masina.IstoricInspectii.Count - 1];
-
                 lblDataInspectie.Content = ultima.DataEfectuare.ToString("dd.MM.yyyy");
                 lblInspector.Content = ultima.InspectorCareAAprobat.Nume;
 
@@ -84,7 +82,6 @@ namespace Proiect_PIU
             }
 
             int zile = (dataExpirare - DateTime.Today).Days;
-
             if (zile < 0)
             {
                 lblAvertizare.Content = "ITP-ul este expirat din " + dataExpirare.ToString("dd.MM.yyyy") + "!";
@@ -93,15 +90,79 @@ namespace Proiect_PIU
             }
             else if (zile <= 30)
             {
-                lblAvertizare.Content = "ITP-ul expira in " + zile + " zile (" + dataExpirare.ToString("dd.MM.yyyy") + "). Programati reinspectia!";
+                lblAvertizare.Content = "ITP-ul expira in " + zile + " zile. Programati reinspectia!";
                 panelAvertizare.Visibility = Visibility.Visible;
                 lblValabilPana.Foreground = new SolidColorBrush(Color.FromRgb(0xF3, 0x9C, 0x12));
             }
         }
 
-        private void BtnAdaugaMasina_Click(object sender, RoutedEventArgs e)
+        // ===================== NAVIGARE MENIU =====================
+        private void BtnMeniuDetalii_Click(object sender, RoutedEventArgs e)
+        {
+            AfiseazaPanel("detalii");
+        }
+
+        private void BtnMeniuAdauga_Click(object sender, RoutedEventArgs e)
         {
             new AdaugaMasinaWindow().ShowDialog();
+        }
+
+        private void BtnMeniuCauta_Click(object sender, RoutedEventArgs e)
+        {
+            AfiseazaPanel("cauta");
+            txtCautare.Focus();
+        }
+
+        private void AfiseazaPanel(string panel)
+        {
+            panelDetalii.Visibility = panel == "detalii" ? Visibility.Visible : Visibility.Collapsed;
+            panelCauta.Visibility = panel == "cauta" ? Visibility.Visible : Visibility.Collapsed;
+
+            btnMeniuDetalii.Style = panel == "detalii"
+                ? (Style)FindResource("BtnMeniuActiv") : (Style)FindResource("BtnMeniu");
+            btnMeniuCauta.Style = panel == "cauta"
+                ? (Style)FindResource("BtnMeniuActiv") : (Style)FindResource("BtnMeniu");
+            btnMeniuAdauga.Style = (Style)FindResource("BtnMeniu");
+        }
+
+        // ===================== CAUTARE =====================
+        private void BtnCauta_Click(object sender, RoutedEventArgs e)
+        {
+            Cauta();
+        }
+
+        private void TxtCautare_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Cauta();
+        }
+
+        private void Cauta()
+        {
+            string termen = txtCautare.Text.Trim().ToUpper();
+
+            if (string.IsNullOrWhiteSpace(termen))
+            {
+                lblMesajCautare.Content = "Introduceți un număr de înmatriculare.";
+                lblMesajCautare.Visibility = Visibility.Visible;
+                dgRezultate.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            Masina gasita = _manager.CautaDupaNrInmatriculare(termen);
+
+            if (gasita != null)
+            {
+                dgRezultate.ItemsSource = new List<Masina> { gasita };
+                dgRezultate.Visibility = Visibility.Visible;
+                lblMesajCautare.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                lblMesajCautare.Content = "Nu a fost găsită nicio mașină cu numărul \"" + termen + "\".";
+                lblMesajCautare.Visibility = Visibility.Visible;
+                dgRezultate.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
