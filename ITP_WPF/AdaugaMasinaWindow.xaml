@@ -1,0 +1,209 @@
+﻿<Window x:Class="Proiect_PIU.AdaugaMasinaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Adaugă Mașină Nouă"
+        Height="650" Width="600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F0F4F8">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="CuloarePrimara"    Color="#1A3C5E"/>
+        <SolidColorBrush x:Key="CuloareEroare"     Color="#E74C3C"/>
+        <SolidColorBrush x:Key="CuloareSucces"     Color="#27AE60"/>
+        <SolidColorBrush x:Key="CuloareCard"       Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="CuloareText"       Color="#2C3E50"/>
+        <SolidColorBrush x:Key="CuloareTextSecundar" Color="#7F8C8D"/>
+
+        <!-- Stil Label normal -->
+        <Style x:Key="LabelCamp" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="FontSize"   Value="12"/>
+            <Setter Property="Foreground" Value="{StaticResource CuloareText}"/>
+            <Setter Property="Padding"    Value="0,0,0,4"/>
+        </Style>
+
+        <!-- Stil TextBox normal -->
+        <Style x:Key="TextBoxNormal" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="Height"     Value="34"/>
+            <Setter Property="Padding"    Value="8,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#BDC3C7"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Stil TextBox cu eroare -->
+        <Style x:Key="TextBoxEroare" TargetType="TextBox" BasedOn="{StaticResource TextBoxNormal}">
+            <Setter Property="BorderBrush" Value="{StaticResource CuloareEroare}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <!-- Stil mesaj eroare -->
+        <Style x:Key="TextEroare" TargetType="TextBlock">
+            <Setter Property="FontFamily"  Value="Segoe UI"/>
+            <Setter Property="FontSize"    Value="11"/>
+            <Setter Property="Foreground"  Value="{StaticResource CuloareEroare}"/>
+            <Setter Property="Margin"      Value="0,2,0,0"/>
+            <Setter Property="Visibility"  Value="Collapsed"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Background="{StaticResource CuloarePrimara}">
+            <Label Content="Adaugă Mașină Nouă"
+                   FontFamily="Segoe UI Light" FontSize="18"
+                   Foreground="White"
+                   VerticalAlignment="Center" Margin="20,0"/>
+        </Border>
+
+        <!-- CONTINUT -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20,16,20,8">
+
+                <!-- CARD: Date Masina -->
+                <Border Background="{StaticResource CuloareCard}"
+                        CornerRadius="8" Margin="0,0,0,12" Padding="18,14">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" ShadowDepth="1"
+                                          Color="#CCCCCC" Opacity="0.3"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <Label Content="DATE MAȘINĂ"
+                               FontFamily="Segoe UI Semibold" FontSize="11"
+                               Foreground="#2980B9" Padding="0,0,0,10"/>
+
+                        <!-- Marca + Model -->
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <Label Name="lblMarca" Content="_Marcă" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtMarca" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errMarca" Text="Marca este obligatorie (max 30 caractere)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <Label Name="lblModel" Content="_Model" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtModel" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errModel" Text="Modelul este obligatoriu (max 30 caractere)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- An + Nr Inmatriculare -->
+                        <Grid Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <Label Name="lblAn" Content="_An fabricație" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtAn" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errAn" Text="An invalid (1900 - 2025)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <Label Name="lblNr" Content="_Nr. înmatriculare" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtNr" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errNr" Text="Format invalid (ex: SV-01-XYZ)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- CARD: Proprietar -->
+                <Border Background="{StaticResource CuloareCard}"
+                        CornerRadius="8" Margin="0,0,0,12" Padding="18,14">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" ShadowDepth="1"
+                                          Color="#CCCCCC" Opacity="0.3"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <Label Content="DATE PROPRIETAR"
+                               FontFamily="Segoe UI Semibold" FontSize="11"
+                               Foreground="#8E44AD" Padding="0,0,0,10"/>
+
+                        <!-- Nume Proprietar -->
+                        <StackPanel Margin="0,0,0,10">
+                            <Label Name="lblNumeProprietar" Content="_Nume proprietar" Style="{StaticResource LabelCamp}"/>
+                            <TextBox Name="txtNumeProprietar" Style="{StaticResource TextBoxNormal}"/>
+                            <TextBlock Name="errNumeProprietar" Text="Numele este obligatoriu (max 50 caractere)." Style="{StaticResource TextEroare}"/>
+                        </StackPanel>
+
+                        <!-- CNP + Telefon -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="12"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <Label Name="lblCNP" Content="_CNP" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtCNP" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errCNP" Text="CNP invalid (13 cifre)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <Label Name="lblTelefon" Content="_Telefon" Style="{StaticResource LabelCamp}"/>
+                                <TextBox Name="txtTelefon" Style="{StaticResource TextBoxNormal}"/>
+                                <TextBlock Name="errTelefon" Text="Telefon invalid (10 cifre)." Style="{StaticResource TextEroare}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Mesaj succes -->
+                <Border Name="panelSucces" Background="#D5F5E3"
+                        BorderBrush="#27AE60" BorderThickness="1"
+                        CornerRadius="6" Padding="14,10"
+                        Visibility="Collapsed">
+                    <TextBlock Text="✓ Mașina a fost adăugată cu succes!"
+                               FontFamily="Segoe UI Semibold" FontSize="13"
+                               Foreground="#1E8449"/>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- BUTOANE -->
+        <Border Grid.Row="2" Background="#FFFFFF"
+                BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="20,0">
+
+                <Button Name="btnReset" Content="Reset"
+                        Width="90" Height="36"
+                        FontFamily="Segoe UI" FontSize="13"
+                        Background="#ECF0F1" Foreground="#2C3E50"
+                        BorderThickness="0"
+                        Margin="0,0,10,0"
+                        Click="BtnReset_Click"/>
+
+                <Button Name="btnAdauga" Content="Adaugă"
+                        Width="110" Height="36"
+                        FontFamily="Segoe UI Semibold" FontSize="13"
+                        Background="{StaticResource CuloarePrimara}"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Click="BtnAdauga_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

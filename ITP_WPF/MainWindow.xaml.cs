@@ -4,7 +4,7 @@ using System.Windows.Media;
 using Modele_PIU.models;
 using Modele_PIU.enums;
 //lab 6 - implementare UI WPF pentru afisarea detaliata a unei masini, inclusiv istoricul inspectiilor ITP, cu evidentierea rezultatelor si avertizari pentru ITP expirat sau respins.
-//tema //incercare
+//tema
 namespace Proiect_PIU
 {
     public partial class MainWindow : Window
@@ -97,6 +97,11 @@ namespace Proiect_PIU
                 panelAvertizare.Visibility = Visibility.Visible;
                 lblValabilPana.Foreground = new SolidColorBrush(Color.FromRgb(0xF3, 0x9C, 0x12));
             }
+        }
+
+        private void BtnAdaugaMasina_Click(object sender, RoutedEventArgs e)
+        {
+            new AdaugaMasinaWindow().ShowDialog();
         }
     }
 }

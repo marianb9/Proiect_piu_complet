@@ -55,21 +55,31 @@
 
         <!-- HEADER -->
         <Border Grid.Row="0" Background="{StaticResource CuloarePrimara}">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="28,0">
+            <Grid Margin="28,0">
                 <StackPanel VerticalAlignment="Center">
                     <Label Name="lblTitluPrincipal"
-                           Content="Sistem de Gestionare ITP"
-                           FontFamily="Segoe UI Light"
-                           FontSize="20"
-                           Foreground="White"
-                           Padding="0"/>
+                   Content="Sistem de Gestionare ITP"
+                   FontFamily="Segoe UI Light"
+                   FontSize="20"
+                   Foreground="White"
+                   Padding="0"/>
                     <Label Content="Detalii Mașină"
-                           FontFamily="Segoe UI"
-                           FontSize="12"
-                           Foreground="#A9CCE3"
-                           Padding="0"/>
+                   FontFamily="Segoe UI"
+                   FontSize="12"
+                   Foreground="#A9CCE3"
+                   Padding="0"/>
                 </StackPanel>
-            </StackPanel>
+                <Button Content="+ Adaugă Mașină"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="140" Height="34"
+                FontFamily="Segoe UI Semibold"
+                FontSize="13"
+                Background="#2980B9"
+                Foreground="White"
+                BorderThickness="0"
+                Click="BtnAdaugaMasina_Click"/>
+            </Grid>
         </Border>
 
         <!-- CONTINUT -->
