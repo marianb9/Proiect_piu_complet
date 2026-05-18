@@ -135,6 +135,10 @@
                             Content="🔍  Caută Mașină"
                             Style="{StaticResource BtnMeniu}"
                             Click="BtnMeniuCauta_Click"/>
+                    <Button Name="btnMeniuModifica"
+                             Content="✏️  Modifică Mașină"
+                             Style="{StaticResource BtnMeniu}"
+                             Click="BtnMeniuModifica_Click"/>
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,16">

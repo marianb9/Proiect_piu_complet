@@ -164,5 +164,9 @@ namespace Proiect_PIU
                 dgRezultate.Visibility = Visibility.Collapsed;
             }
         }
+        private void BtnMeniuModifica_Click(object sender, RoutedEventArgs e)
+        {
+            new ModificaMasinaWindow().ShowDialog();
+        }
     }
 }
