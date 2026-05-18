@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using Manager_PIU.manager;
 using Modele_PIU.enums;
 using Modele_PIU.models;
-
+//comm TA9
 namespace Proiect_PIU
 {
     public partial class ModificaMasinaWindow : Window
