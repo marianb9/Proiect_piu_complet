@@ -1,0 +1,247 @@
+﻿<Window x:Class="Proiect_PIU.GestionareInspectiiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestionare Inspectii ITP"
+        MinWidth="700" MinHeight="500"
+        Width="900" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F4F8">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="CuloarePrimara"      Color="#1A3C5E"/>
+        <SolidColorBrush x:Key="CuloareSecundara"    Color="#2980B9"/>
+        <SolidColorBrush x:Key="CuloareAccent"       Color="#27AE60"/>
+        <SolidColorBrush x:Key="CuloareEroare"       Color="#E74C3C"/>
+        <SolidColorBrush x:Key="CuloareCard"         Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="CuloareText"         Color="#2C3E50"/>
+        <SolidColorBrush x:Key="CuloareTextSecundar" Color="#7F8C8D"/>
+
+        <Style x:Key="LabelCamp" TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="FontSize"   Value="12"/>
+            <Setter Property="Foreground" Value="{StaticResource CuloareText}"/>
+            <Setter Property="Padding"    Value="0,0,0,4"/>
+        </Style>
+
+        <Style x:Key="TextBoxBinding" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="Height"     Value="34"/>
+            <Setter Property="Padding"    Value="8,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#BDC3C7"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <Border Grid.Row="0" Background="{StaticResource CuloarePrimara}">
+            <Grid Margin="20,0">
+                <Label Content="Gestionare Inspectii ITP"
+                       FontFamily="Segoe UI Light" FontSize="18"
+                       Foreground="White" VerticalAlignment="Center" Padding="0"/>
+                <!-- BINDING 1: Label legat la DataGrid.Items.Count -->
+                <Label Content="{Binding ElementName=dgInspectii, Path=Items.Count, StringFormat='Total inspectii: {0}'}"
+                       FontFamily="Segoe UI" FontSize="12"
+                       Foreground="#A9CCE3"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Padding="0"/>
+            </Grid>
+        </Border>
+
+        <!-- CONTINUT -->
+        <Grid Grid.Row="1" Margin="20,12,20,8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Selectare masina -->
+            <Border Grid.Row="0" Background="{StaticResource CuloareCard}"
+                    CornerRadius="8" Margin="0,0,0,10" Padding="16,12">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Masina:"
+                           Style="{StaticResource LabelCamp}"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0" Padding="0"/>
+                    <ComboBox Grid.Column="1" Name="cmbMasini"
+                              Height="32" FontFamily="Segoe UI" FontSize="13"
+                              DisplayMemberPath="NrInmatriculare"
+                              SelectionChanged="CmbMasini_SelectionChanged"/>
+                    <Label Grid.Column="2" Name="lblInfoMasina"
+                           FontFamily="Segoe UI" FontSize="12"
+                           Foreground="{StaticResource CuloareTextSecundar}"
+                           VerticalAlignment="Center"
+                           Margin="12,0,0,0" Padding="0"/>
+                </Grid>
+            </Border>
+
+            <!-- DataGrid -->
+            <Border Grid.Row="1" Background="{StaticResource CuloareCard}"
+                    CornerRadius="8" Margin="0,0,0,10" Padding="16,12">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Border Width="3" Background="{StaticResource CuloareSecundara}"
+                                CornerRadius="2" Margin="0,0,8,0"/>
+                        <Label Content="LISTA INSPECTII"
+                               FontFamily="Segoe UI Semibold" FontSize="11"
+                               Foreground="{StaticResource CuloareSecundara}"
+                               Padding="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" Name="dgInspectii"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="All"
+                              AlternatingRowBackground="#F5F5F5"
+                              RowHeight="28"
+                              SelectionChanged="DgInspectii_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Data Inspectiei"  Binding="{Binding DataEfectuare, StringFormat=dd.MM.yyyy}" Width="130"/>
+                            <DataGridTextColumn Header="Rezultat"         Binding="{Binding RezultatText}" Width="90"/>
+                            <DataGridTextColumn Header="Valabil pana la"  Binding="{Binding DataExpirare, StringFormat=dd.MM.yyyy}" Width="130"/>
+                            <DataGridTextColumn Header="Inspector"        Binding="{Binding NumeInspector}" Width="*"/>
+                            <DataGridTextColumn Header="Defectiuni"       Binding="{Binding Defectiuni}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal"
+                                HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button Name="btnSterge" Content="Sterge"
+                                Height="32" Width="90"
+                                FontFamily="Segoe UI Semibold" FontSize="12"
+                                Background="{StaticResource CuloareEroare}"
+                                Foreground="White" BorderThickness="0"
+                                Margin="0,0,8,0"
+                                Click="BtnSterge_Click"/>
+                        <Button Name="btnEditeaza" Content="Editeaza"
+                                Height="32" Width="90"
+                                FontFamily="Segoe UI Semibold" FontSize="12"
+                                Background="#F39C12"
+                                Foreground="White" BorderThickness="0"
+                                Click="BtnEditeaza_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Formular cu BINDING TwoWay -->
+            <Border Grid.Row="2" Background="{StaticResource CuloareCard}"
+                    CornerRadius="8" Padding="16,12">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
+                </Border.Effect>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Border Width="3" Background="{StaticResource CuloareAccent}"
+                                CornerRadius="2" Margin="0,0,8,0"/>
+                        <Label Name="lblTitluFormular" Content="ADAUGA INSPECTIE NOUA"
+                               FontFamily="Segoe UI Semibold" FontSize="11"
+                               Foreground="{StaticResource CuloareAccent}"
+                               Padding="0" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <Label Content="Data inspectiei" Style="{StaticResource LabelCamp}"/>
+                            <!-- BINDING 2: DatePicker TwoWay la InspectieViewModel.DataEfectuare -->
+                            <DatePicker Name="dtpData"
+                                        Height="34"
+                                        FontFamily="Segoe UI" FontSize="13"
+                                        SelectedDateFormat="Short"
+                                        SelectedDate="{Binding DataEfectuare, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <Label Content="Rezultat" Style="{StaticResource LabelCamp}"/>
+                            <ComboBox Name="cmbRezultat"
+                                      Height="34"
+                                      FontFamily="Segoe UI" FontSize="13"
+                                      SelectedIndex="0">
+                                <ComboBoxItem Content="Admis"/>
+                                <ComboBoxItem Content="Respins"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4">
+                            <Label Content="Inspector" Style="{StaticResource LabelCamp}"/>
+                            <!-- BINDING TwoWay la InspectieViewModel.NumeInspector -->
+                            <TextBox Style="{StaticResource TextBoxBinding}"
+                                     Text="{Binding NumeInspector, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="6">
+                            <Label Content="Defectiuni" Style="{StaticResource LabelCamp}"/>
+                            <TextBox Style="{StaticResource TextBoxBinding}"
+                                     Text="{Binding Defectiuni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button Content="Anuleaza"
+                                Width="90" Height="32"
+                                FontFamily="Segoe UI" FontSize="12"
+                                Background="#ECF0F1" Foreground="#2C3E50"
+                                BorderThickness="0" Margin="0,0,8,0"
+                                Click="BtnAnuleaza_Click"/>
+                        <Button Name="btnSalveaza" Content="Salveaza"
+                                Width="100" Height="32"
+                                FontFamily="Segoe UI Semibold" FontSize="12"
+                                Background="{StaticResource CuloarePrimara}"
+                                Foreground="White" BorderThickness="0"
+                                Click="BtnSalveaza_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+        <!-- FOOTER -->
+        <Border Grid.Row="2" Background="#E8EDF2" BorderBrush="#D0D7DE" BorderThickness="0,1,0,0">
+            <Label Name="lblStatus"
+                   Content="Selectati o masina pentru a vedea inspectiile."
+                   FontFamily="Segoe UI" FontSize="11"
+                   Foreground="{StaticResource CuloareTextSecundar}"
+                   VerticalAlignment="Center" Margin="20,0"/>
+        </Border>
+
+    </Grid>
+</Window>

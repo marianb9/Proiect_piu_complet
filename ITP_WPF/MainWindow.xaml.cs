@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ITP_WPF;
+using Manager_PIU.manager;
+using Modele_PIU.enums;
+using Modele_PIU.models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Manager_PIU.manager;
-using Modele_PIU.enums;
-using Modele_PIU.models;
 
 namespace Proiect_PIU
 {
@@ -167,6 +168,10 @@ namespace Proiect_PIU
         private void BtnMeniuModifica_Click(object sender, RoutedEventArgs e)
         {
             new ModificaMasinaWindow().ShowDialog();
+        }
+        private void BtnMeniuInspectii_Click(object sender, RoutedEventArgs e)
+        {
+            new GestionareInspectiiWindow().ShowDialog();
         }
     }
 }
