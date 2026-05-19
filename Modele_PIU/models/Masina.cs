@@ -26,11 +26,15 @@ namespace Modele_PIU.models
             Model = date[1];
             AnFabricatie = int.Parse(date[2]);
             NrInmatriculare = date[3];
+            if (date.Length >= 7)
+                Proprietar = new Proprietar(date[4], date[5], date[6]);
         }
-
         public string ConversieLaSirPentruFisier()
         {
-            return $"{Marca};{Model};{AnFabricatie};{NrInmatriculare}";
+            string numeProprietar = Proprietar?.Nume ?? "";
+            string cnpProprietar = Proprietar?.CNP ?? "";
+            string telefonProprietar = Proprietar?.Telefon ?? "";
+            return $"{Marca};{Model};{AnFabricatie};{NrInmatriculare};{numeProprietar};{cnpProprietar};{telefonProprietar}";
         }
     }
 }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Sistem ITP"
         MinWidth="700" MinHeight="450"
-        Width="1000" Height="650"
+        Width="1050" Height="650"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         Background="#F0F4F8">
@@ -18,7 +18,6 @@
         <SolidColorBrush x:Key="CuloareTextSecundar" Color="#7F8C8D"/>
         <SolidColorBrush x:Key="CuloareMeniu"        Color="#152D46"/>
 
-        <!-- Stil global Label -->
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize"   Value="13"/>
@@ -26,7 +25,6 @@
             <Setter Property="Padding"    Value="0"/>
         </Style>
 
-        <!-- Stil buton meniu -->
         <Style x:Key="BtnMeniu" TargetType="Button">
             <Setter Property="FontFamily"            Value="Segoe UI"/>
             <Setter Property="FontSize"              Value="13"/>
@@ -39,54 +37,20 @@
             <Setter Property="Cursor"                Value="Hand"/>
         </Style>
 
-        <!-- Stil buton meniu activ -->
         <Style x:Key="BtnMeniuActiv" TargetType="Button" BasedOn="{StaticResource BtnMeniu}">
             <Setter Property="Foreground"  Value="White"/>
             <Setter Property="Background"  Value="#2980B9"/>
             <Setter Property="FontWeight"  Value="SemiBold"/>
         </Style>
 
-        <!-- Stil LabelCamp -->
         <Style x:Key="LabelCamp" TargetType="Label">
             <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
             <Setter Property="FontSize"   Value="11"/>
             <Setter Property="Foreground" Value="{StaticResource CuloareTextSecundar}"/>
             <Setter Property="Padding"    Value="0"/>
         </Style>
-
-        <!-- Stil LabelValoare -->
-        <Style x:Key="LabelValoare" TargetType="Label">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize"   Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="{StaticResource CuloareText}"/>
-            <Setter Property="Padding"    Value="0"/>
-        </Style>
-
-        <!-- Stil TextBox cautare -->
-        <Style x:Key="TextBoxCautare" TargetType="TextBox">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize"   Value="13"/>
-            <Setter Property="Height"     Value="34"/>
-            <Setter Property="Padding"    Value="8,0"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="#BDC3C7"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-
-        <!-- Stil Button actiune -->
-        <Style x:Key="BtnActiune" TargetType="Button">
-            <Setter Property="FontFamily"      Value="Segoe UI Semibold"/>
-            <Setter Property="FontSize"        Value="13"/>
-            <Setter Property="Height"          Value="34"/>
-            <Setter Property="Foreground"      Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding"         Value="16,0"/>
-            <Setter Property="Cursor"          Value="Hand"/>
-        </Style>
     </Window.Resources>
 
-    <!-- Layout principal: Grid cu meniu stanga + continut dreapta -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="190"/>
@@ -97,259 +61,107 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <!-- ===== MENIU LATERAL ===== -->
+        <!-- MENIU LATERAL -->
         <Border Grid.Column="0" Grid.RowSpan="2"
                 Background="{StaticResource CuloareMeniu}">
             <DockPanel>
-                <!-- Logo / Titlu meniu -->
-                <StackPanel DockPanel.Dock="Top" Margin="0,24,0,20">
-                    <Label Content="🚗 Sistem ITP"
-                           FontFamily="Segoe UI Light"
-                           FontSize="17"
+                <StackPanel DockPanel.Dock="Top" Margin="0,24,0,16">
+                    <Label Content="Sistem ITP"
+                           FontFamily="Segoe UI Light" FontSize="18"
                            Foreground="White"
-                           HorizontalAlignment="Center"
-                           Padding="0"/>
-                    <Label Content="Gestionare Inspecții"
-                           FontFamily="Segoe UI"
-                           FontSize="11"
+                           HorizontalAlignment="Center" Padding="0"/>
+                    <Label Content="Inspectii Tehnice Auto"
+                           FontFamily="Segoe UI" FontSize="11"
                            Foreground="#5D8AA8"
-                           HorizontalAlignment="Center"
-                           Padding="0"/>
+                           HorizontalAlignment="Center" Padding="0"/>
                 </StackPanel>
 
-                <!-- Separator -->
                 <Border DockPanel.Dock="Top" Height="1"
                         Background="#2C4A6A" Margin="16,0,16,8"/>
 
-                <!-- Butoane meniu -->
                 <StackPanel DockPanel.Dock="Top">
-                    <Button Name="btnMeniuDetalii"
-                            Content="📋  Detalii Mașină"
+                    <Button Name="btnMeniuLista"
+                            Content="Lista Masini"
                             Style="{StaticResource BtnMeniuActiv}"
-                            Click="BtnMeniuDetalii_Click"/>
+                            Click="BtnMeniuLista_Click"/>
                     <Button Name="btnMeniuAdauga"
-                            Content="➕  Adaugă Mașină"
+                            Content="Adauga Masina"
                             Style="{StaticResource BtnMeniu}"
                             Click="BtnMeniuAdauga_Click"/>
                     <Button Name="btnMeniuCauta"
-                            Content="🔍  Caută Mașină"
+                            Content="Cauta Masina"
                             Style="{StaticResource BtnMeniu}"
                             Click="BtnMeniuCauta_Click"/>
+                    <Button Name="btnMeniuInspectii"
+                            Content="Inspectii CRUD"
+                            Style="{StaticResource BtnMeniu}"
+                            Click="BtnMeniuInspectii_Click"/>
                     <Button Name="btnMeniuModifica"
-                             Content="✏️  Modifică Mașină"
-                             Style="{StaticResource BtnMeniu}"
-                             Click="BtnMeniuModifica_Click"/>
-                    <Button Content="📋  Inspecții CRUD" Style="{StaticResource BtnMeniu}" Click="BtnMeniuInspectii_Click"/>
+                            Content="Modifica Masina"
+                            Style="{StaticResource BtnMeniu}"
+                            Click="BtnMeniuModifica_Click"/>
                 </StackPanel>
 
-                <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,16">
-                    <Border Height="1" Background="#2C4A6A" Margin="16,0,16,12"/>
-                    <Label Content="© 2025 Sistem ITP"
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,14">
+                    <Border Height="1" Background="#2C4A6A" Margin="16,0,16,10"/>
+                    <Label Content="2025 Sistem ITP"
                            FontSize="10" Foreground="#5D8AA8"
                            HorizontalAlignment="Center" Padding="0"/>
                 </StackPanel>
             </DockPanel>
         </Border>
 
-        <!-- ===== CONTINUT PRINCIPAL ===== -->
+        <!-- CONTINUT PRINCIPAL -->
         <Grid Grid.Column="1" Grid.Row="0">
 
-            <!-- == SECTIUNEA DETALII == -->
-            <ScrollViewer Name="panelDetalii"
-                          VerticalScrollBarVisibility="Auto"
-                          Visibility="Visible">
-                <StackPanel Margin="24,20,24,16">
-
-                    <Label Content="Detalii Mașină"
-                           FontFamily="Segoe UI Light" FontSize="22"
-                           Foreground="{StaticResource CuloarePrimara}"
-                           Margin="0,0,0,16" Padding="0"/>
-
-                    <!-- CARD: Date Masina -->
-                    <Border Background="{StaticResource CuloareCard}"
-                            CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Color="#BBBBBB" Opacity="0.35"/>
-                        </Border.Effect>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
-                                <Border Width="3" Background="{StaticResource CuloareSecundara}" CornerRadius="2" Margin="0,0,8,0"/>
-                                <Label Content="DATE MAȘINĂ" FontFamily="Segoe UI Semibold" FontSize="12"
-                                       Foreground="{StaticResource CuloareSecundara}" Padding="0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,16,12">
-                                    <Label Content="NR. ÎNMATRICULARE" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblNrInmatriculare" Style="{StaticResource LabelValoare}" FontSize="17" Foreground="{StaticResource CuloarePrimara}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,16,12">
-                                    <Label Content="MARCĂ / MODEL" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblMarcaModel" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Grid.Row="0" Margin="0,0,0,12">
-                                    <Label Content="AN FABRICAȚIE" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblAnFabricatie" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,16,0">
-                                    <Label Content="CULOARE" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblCuloare" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,16,0">
-                                    <Label Content="DOTĂRI" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblDotari" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- CARD: Proprietar -->
-                    <Border Background="{StaticResource CuloareCard}"
-                            CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Color="#BBBBBB" Opacity="0.35"/>
-                        </Border.Effect>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
-                                <Border Width="3" Background="#8E44AD" CornerRadius="2" Margin="0,0,8,0"/>
-                                <Label Content="PROPRIETAR" FontFamily="Segoe UI Semibold" FontSize="12"
-                                       Foreground="#8E44AD" Padding="0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                                    <Label Content="NUME" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblProprietarNume" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Margin="0,0,16,0">
-                                    <Label Content="CNP" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblProprietarCNP" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2">
-                                    <Label Content="TELEFON" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblProprietarTelefon" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- CARD: Ultima Inspectie -->
-                    <Border Background="{StaticResource CuloareCard}"
-                            CornerRadius="10" Margin="0,0,0,14" Padding="22,18">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="6" ShadowDepth="1" Color="#BBBBBB" Opacity="0.35"/>
-                        </Border.Effect>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
-                                <Border Width="3" Background="{StaticResource CuloareAccent}" CornerRadius="2" Margin="0,0,8,0"/>
-                                <Label Content="ULTIMA INSPECȚIE ITP" FontFamily="Segoe UI Semibold" FontSize="12"
-                                       Foreground="{StaticResource CuloareAccent}" Padding="0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                                    <Label Content="REZULTAT" Style="{StaticResource LabelCamp}"/>
-                                    <Border Name="badgeRezultat" CornerRadius="10" Padding="10,3" HorizontalAlignment="Left" Margin="0,4,0,0">
-                                        <Label Name="lblRezultat" FontFamily="Segoe UI Semibold" FontSize="13" Padding="0"/>
-                                    </Border>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Margin="0,0,16,0">
-                                    <Label Content="DATA INSPECȚIEI" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblDataInspectie" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Margin="0,0,16,0">
-                                    <Label Content="VALABIL PÂNĂ LA" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblValabilPana" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="3">
-                                    <Label Content="INSPECTOR" Style="{StaticResource LabelCamp}"/>
-                                    <Label Name="lblInspector" Style="{StaticResource LabelValoare}"/>
-                                </StackPanel>
-                            </Grid>
-                            <Border Name="panelDefectiuni" Margin="0,12,0,0" Background="#FEF9E7"
-                                    CornerRadius="6" Padding="12,8" Visibility="Collapsed">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Defecțiuni:" Style="{StaticResource LabelCamp}"
-                                           Foreground="#B7950B" FontSize="12" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                    <Label Name="lblDefectiuni" FontFamily="Segoe UI" FontSize="13"
-                                           Foreground="#7D6608" Padding="0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- AVERTIZARE -->
-                    <Border Name="panelAvertizare" Background="#FDEDEC"
-                            BorderBrush="{StaticResource CuloareAvertizare}"
-                            BorderThickness="1" CornerRadius="8"
-                            Padding="16,10" Visibility="Collapsed">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="⚠" FontSize="16" Padding="0,0,10,0"
-                                   Foreground="{StaticResource CuloareAvertizare}" VerticalAlignment="Center"/>
-                            <Label Name="lblAvertizare" FontFamily="Segoe UI Semibold" FontSize="13"
-                                   Foreground="{StaticResource CuloareAvertizare}" Padding="0" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
-
-                </StackPanel>
-            </ScrollViewer>
-
-            <!-- == SECTIUNEA CAUTARE == -->
-            <Grid Name="panelCauta" Visibility="Collapsed" Margin="24,20,24,16">
+            <!-- SECTIUNEA LISTA MASINI -->
+            <Grid Name="panelLista" Visibility="Visible" Margin="24,20,24,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Content="Caută Mașină"
-                       FontFamily="Segoe UI Light" FontSize="22"
-                       Foreground="{StaticResource CuloarePrimara}"
-                       Margin="0,0,0,16" Padding="0"/>
+                <!-- Titlu + buton refresh -->
+                <Grid Grid.Row="0" Margin="0,0,0,14">
+                    <Label Content="Lista Masini"
+                           FontFamily="Segoe UI Light" FontSize="22"
+                           Foreground="{StaticResource CuloarePrimara}"
+                           Padding="0" VerticalAlignment="Center"/>
+                    <Button Content="Reincarca"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Width="100" Height="32"
+                            FontFamily="Segoe UI" FontSize="12"
+                            Background="{StaticResource CuloareSecundara}"
+                            Foreground="White" BorderThickness="0"
+                            Click="BtnReincarca_Click"/>
+                </Grid>
 
-                <!-- Bara de cautare -->
+                <!-- Sumar -->
                 <Border Grid.Row="1" Background="{StaticResource CuloareCard}"
-                        CornerRadius="8" Padding="18,14" Margin="0,0,0,14">
+                        CornerRadius="8" Margin="0,0,0,12" Padding="18,12">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
                     </Border.Effect>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="12"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <Label Content="Număr înmatriculare" Style="{StaticResource LabelCamp}" Margin="0,0,0,4"/>
-                            <TextBox Name="txtCautare" Style="{StaticResource TextBoxCautare}"
-                                     KeyDown="TxtCautare_KeyDown"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="0,0,40,0">
+                            <Label Content="TOTAL MASINI" Style="{StaticResource LabelCamp}"/>
+                            <!-- Binding la DataGrid.Items.Count -->
+                            <Label Content="{Binding ElementName=dgMasini, Path=Items.Count}"
+                                   FontFamily="Segoe UI Semibold" FontSize="22"
+                                   Foreground="{StaticResource CuloarePrimara}" Padding="0"/>
                         </StackPanel>
-                        <Button Grid.Column="2" Content="Caută"
-                                Style="{StaticResource BtnActiune}"
-                                Background="{StaticResource CuloareSecundara}"
-                                VerticalAlignment="Bottom"
-                                Click="BtnCauta_Click"/>
-                    </Grid>
+                        <StackPanel>
+                            <Label Content="FISIER DATE" Style="{StaticResource LabelCamp}"/>
+                            <Label Content="Masini.txt"
+                                   FontFamily="Segoe UI" FontSize="14"
+                                   Foreground="{StaticResource CuloareTextSecundar}" Padding="0"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
 
-                <!-- Rezultate -->
+                <!-- DataGrid masini -->
                 <Border Grid.Row="2" Background="{StaticResource CuloareCard}"
                         CornerRadius="8" Padding="18,14">
                     <Border.Effect>
@@ -362,24 +174,15 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                            <Border Width="3" Background="{StaticResource CuloareSecundara}" CornerRadius="2" Margin="0,0,8,0"/>
-                            <Label Content="REZULTATE" FontFamily="Segoe UI Semibold" FontSize="12"
-                                   Foreground="{StaticResource CuloareSecundara}" Padding="0" VerticalAlignment="Center"/>
+                            <Border Width="3" Background="{StaticResource CuloareSecundara}"
+                                    CornerRadius="2" Margin="0,0,8,0"/>
+                            <Label Content="TOATE MASINILE"
+                                   FontFamily="Segoe UI Semibold" FontSize="11"
+                                   Foreground="{StaticResource CuloareSecundara}"
+                                   Padding="0" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <!-- Mesaj lipsa rezultate -->
-                        <Label Name="lblMesajCautare"
-                               Grid.Row="1"
-                               Content="Introduceți un număr de înmatriculare și apăsați Caută."
-                               FontFamily="Segoe UI" FontSize="13"
-                               Foreground="{StaticResource CuloareTextSecundar}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Visibility="Visible"/>
-
-                        <!-- DataGrid rezultate -->
-                        <DataGrid Name="dgRezultate"
-                                  Grid.Row="1"
+                        <DataGrid Grid.Row="1" Name="dgMasini"
                                   AutoGenerateColumns="False"
                                   IsReadOnly="True"
                                   CanUserAddRows="False"
@@ -387,14 +190,125 @@
                                   HeadersVisibility="Column"
                                   GridLinesVisibility="All"
                                   AlternatingRowBackground="#F5F5F5"
-                                  RowHeight="28"
+                                  RowHeight="30"
+                                  FontFamily="Segoe UI"
+                                  FontSize="13">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nr. Inmatriculare" Binding="{Binding NrInmatriculare}" Width="150"/>
+                                <DataGridTextColumn Header="Marca"             Binding="{Binding Marca}"           Width="*"/>
+                                <DataGridTextColumn Header="Model"             Binding="{Binding Model}"           Width="*"/>
+                                <DataGridTextColumn Header="An Fabricatie"     Binding="{Binding AnFabricatie}"    Width="110"/>
+                                <DataGridTextColumn Header="Proprietar"        Binding="{Binding Proprietar.Nume}" Width="*"/>
+                                <DataGridTextColumn Header="Telefon"           Binding="{Binding Proprietar.Telefon}" Width="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- SECTIUNEA CAUTARE -->
+            <Grid Name="panelCauta" Visibility="Collapsed" Margin="24,20,24,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Cauta Masina"
+                       FontFamily="Segoe UI Light" FontSize="22"
+                       Foreground="{StaticResource CuloarePrimara}"
+                       Padding="0" Margin="0,0,0,14"/>
+
+                <Border Grid.Row="1" Background="{StaticResource CuloareCard}"
+                        CornerRadius="8" Padding="18,14" Margin="0,0,0,12">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <Label Content="Cauta dupa" Style="{StaticResource LabelCamp}" Margin="0,0,0,4"/>
+                            <ComboBox Name="cmbCriteriuCautare"
+                  Height="34" FontFamily="Segoe UI" FontSize="13"
+                  SelectedIndex="0">
+                                <ComboBoxItem Content="Nr. Inmatriculare"/>
+                                <ComboBoxItem Content="Marca"/>
+                                <ComboBoxItem Content="Model"/>
+                                <ComboBoxItem Content="Proprietar"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <Label Content="Termen cautare" Style="{StaticResource LabelCamp}" Margin="0,0,0,4"/>
+                            <TextBox Name="txtCautare"
+                 FontFamily="Segoe UI" FontSize="13"
+                 Height="34" Padding="8,0"
+                 VerticalContentAlignment="Center"
+                 BorderBrush="#BDC3C7" BorderThickness="1"
+                 TextChanged="TxtCautare_TextChanged"
+                 KeyDown="TxtCautare_KeyDown"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="4" Content="Cauta"
+            Height="34" Width="90"
+            FontFamily="Segoe UI Semibold" FontSize="13"
+            Background="{StaticResource CuloareSecundara}"
+            Foreground="White" BorderThickness="0"
+            VerticalAlignment="Bottom"
+            Click="BtnCauta_Click"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2" Background="{StaticResource CuloareCard}"
+                        CornerRadius="8" Padding="18,14">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" ShadowDepth="1" Color="#CCCCCC" Opacity="0.3"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Width="3" Background="{StaticResource CuloareSecundara}"
+                                    CornerRadius="2" Margin="0,0,8,0"/>
+                            <Label Name="lblRezultateHeader" Content="REZULTATE"
+                                   FontFamily="Segoe UI Semibold" FontSize="11"
+                                   Foreground="{StaticResource CuloareSecundara}"
+                                   Padding="0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Label Name="lblMesajCautare" Grid.Row="1"
+                               Content="Introduceti un numar de inmatriculare si apasati Cauta."
+                               FontFamily="Segoe UI" FontSize="13"
+                               Foreground="{StaticResource CuloareTextSecundar}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                        <DataGrid Name="dgRezultate" Grid.Row="1"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="All"
+                                  AlternatingRowBackground="#F5F5F5"
+                                  RowHeight="30"
+                                  FontFamily="Segoe UI" FontSize="13"
                                   Visibility="Collapsed">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nr. Înmatriculare" Binding="{Binding NrInmatriculare}" Width="160"/>
-                                <DataGridTextColumn Header="Marcă" Binding="{Binding Marca}" Width="*"/>
-                                <DataGridTextColumn Header="Model" Binding="{Binding Model}" Width="*"/>
-                                <DataGridTextColumn Header="An" Binding="{Binding AnFabricatie}" Width="70"/>
-                                <DataGridTextColumn Header="Proprietar" Binding="{Binding Proprietar.Nume}" Width="*"/>
+                                <DataGridTextColumn Header="Nr. Inmatriculare" Binding="{Binding NrInmatriculare}" Width="160"/>
+                                <DataGridTextColumn Header="Marca"             Binding="{Binding Marca}"           Width="*"/>
+                                <DataGridTextColumn Header="Model"             Binding="{Binding Model}"           Width="*"/>
+                                <DataGridTextColumn Header="An"                Binding="{Binding AnFabricatie}"    Width="70"/>
+                                <DataGridTextColumn Header="Proprietar"        Binding="{Binding Proprietar.Nume}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -407,7 +321,8 @@
         <Border Grid.Column="1" Grid.Row="1"
                 Background="#E8EDF2"
                 BorderBrush="#D0D7DE" BorderThickness="0,1,0,0">
-            <Label Content="© 2025 Sistem ITP  |  Proiectare Interfețe Utilizator"
+            <Label Name="lblStatus"
+                   Content="Aplicatie de gestionare a inspectiilor tehnice periodice auto."
                    FontFamily="Segoe UI" FontSize="11"
                    Foreground="{StaticResource CuloareTextSecundar}"
                    HorizontalAlignment="Center"

@@ -7,7 +7,7 @@ namespace Manager_PIU.manager
 {
     public class ManagerMasiniFisier
     {
-        private string numeFisier = "Masini.txt";
+        private string numeFisier = @"C:\Users\Marian\Desktop\Masini.txt";
 
         public ManagerMasiniFisier()
         {

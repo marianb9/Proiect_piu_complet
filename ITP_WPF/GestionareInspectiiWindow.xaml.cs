@@ -84,7 +84,7 @@ namespace Proiect_PIU
             }
             else
             {
-                // CREATE - ObservableCollection notifica automat DataGrid-ul
+                //CREATE - ObservableCollection notifica automat DataGrid-ul
                 _inspectii.Add(new InspectieViewModel(vm.ToInspectieITP()));
                 lblStatus.Content = "Inspectie adaugata cu succes.";
             }
@@ -93,7 +93,7 @@ namespace Proiect_PIU
             ResetFormular();
         }
 
-        // UPDATE - populare formular la editare
+        //UPDATE - populare formular la editare
         private void BtnEditeaza_Click(object sender, RoutedEventArgs e)
         {
             InspectieViewModel selectata = dgInspectii.SelectedItem as InspectieViewModel;
@@ -115,7 +115,7 @@ namespace Proiect_PIU
             lblStatus.Content = "Mod editare activ. Modificati campurile si apasati Actualizeaza.";
         }
 
-        // DELETE
+        //DELETE
         private void BtnSterge_Click(object sender, RoutedEventArgs e)
         {
             InspectieViewModel selectata = dgInspectii.SelectedItem as InspectieViewModel;
@@ -140,7 +140,7 @@ namespace Proiect_PIU
             }
         }
 
-        // Activare butoane la selectie in DataGrid
+        //Activare butoane la selectie in DataGrid
         private void DgInspectii_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool areSelectie = dgInspectii.SelectedItem != null;
@@ -153,7 +153,7 @@ namespace Proiect_PIU
             ResetFormular();
         }
 
-        // Sincronizare model + salvare fisier
+        //Sincronizare model + salvare fisier
         private void SincronizeazaSiSalveaza()
         {
             if (_masinaSelectata == null) return;
