@@ -19,23 +19,37 @@ namespace Modele_PIU.models
         {
             Marca = marca; Model = model; AnFabricatie = an; NrInmatriculare = nrInmatriculare; Proprietar = proprietar; CuloareMasina = culoare; Dotari = dotari;
         }
-        public Masina(string linieFisier)
+        public Masina(string linie)
         {
-            if (string.IsNullOrWhiteSpace(linieFisier))
-                return;
+            string[] parts = linie.Split(';');
 
-            var date = linieFisier.Split(';');
+            Marca = parts[0];
+            Model = parts[1];
+            AnFabricatie = int.Parse(parts[2]);
+            NrInmatriculare = parts[3];
 
-            if (date.Length >= 4)
+            
+            Proprietar = new Proprietar(parts[4], parts[5], parts[6]);
+
+            // Deserializam inspectiile (parts[7] poate sa nu existe pe linii vechi)
+            // Deserializam inspectiile
+            IstoricInspectii = new List<InspectieITP>();
+            if (parts.Length > 7 && !string.IsNullOrWhiteSpace(parts[7]))
             {
-                Marca = date[0];
-                Model = date[1];
-                AnFabricatie = int.Parse(date[2]);
-                NrInmatriculare = date[3];
-
-                if (date.Length >= 7)
+                foreach (string inspStr in parts[7].Split('|'))
                 {
-                    Proprietar = new Proprietar(date[4], date[5], date[6]);
+                    string[] ip = inspStr.Split(',');
+                    if (ip.Length >= 2)
+                    {
+                        DateTime data = DateTime.ParseExact(ip[0], "dd.MM.yyyy", null);
+                        Rezultat rez = (Rezultat)Enum.Parse(typeof(Rezultat), ip[1]);
+                        string numeInspector = ip.Length > 2 ? ip[2] : "";
+                        string defectiuni = ip.Length > 3 ? ip[3] : "";
+
+                        // Adapteaza parametrii la constructorii tai reali:
+                        Inspector inspector = new Inspector(numeInspector, "");
+                        IstoricInspectii.Add(new InspectieITP(data, rez, inspector, defectiuni));
+                    }
                 }
             }
         }
@@ -44,7 +58,14 @@ namespace Modele_PIU.models
             string numeProprietar = Proprietar?.Nume ?? "";
             string cnpProprietar = Proprietar?.CNP ?? "";
             string telefonProprietar = Proprietar?.Telefon ?? "";
-            return $"{Marca};{Model};{AnFabricatie};{NrInmatriculare};{numeProprietar};{cnpProprietar};{telefonProprietar}";
+
+            // Serializam fiecare inspectie cu '|' ca separator
+            string inspectiiSerializate = string.Join("|", IstoricInspectii.Select(i =>
+                $"{i.DataEfectuare:dd.MM.yyyy},{i.Rezultat},{i.InspectorCareAAprobat?.Nume ?? ""},{i.Defectiuni ?? ""}"));
+
+            return $"{Marca};{Model};{AnFabricatie};{NrInmatriculare};" +
+                   $"{numeProprietar};{cnpProprietar};{telefonProprietar};" +
+                   $"{inspectiiSerializate}";
         }
     }
 }

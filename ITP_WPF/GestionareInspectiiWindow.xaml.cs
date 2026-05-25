@@ -173,7 +173,11 @@ namespace Proiect_PIU
                 }
             }
 
-            using (StreamWriter sw = new StreamWriter("Masini.txt", false))
+            string cale = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                "Masini.txt"
+            );
+            using (StreamWriter sw = new StreamWriter(cale, false))
             {
                 foreach (Masina m in toateMasinile)
                     sw.WriteLine(m.ConversieLaSirPentruFisier());
