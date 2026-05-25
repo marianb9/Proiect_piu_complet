@@ -7,7 +7,10 @@ namespace Manager_PIU.manager
 {
     public class ManagerMasiniFisier
     {
-        private string numeFisier = @"C:\Users\Marian\Desktop\Masini.txt";
+        private string numeFisier = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            "Masini.txt"
+    );
 
         public ManagerMasiniFisier()
         {
